@@ -4,7 +4,7 @@
   "sourceRoot": "libs/social-feed-ui/src",
   "prefix": "lib",
   "projectType": "library",
-  "tags": ["type:ui", "platform:crossplatform"],
+  "tags": ["type:ui", "platform:mobile", "platform:web"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"

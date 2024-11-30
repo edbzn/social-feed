@@ -4,7 +4,7 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/social-feed-app/src",
-  "tags": ["type:app", "platform:crossplatform"],
+  "tags": ["type:app", "platform:mobile", "platform:web"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",

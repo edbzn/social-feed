@@ -4,7 +4,7 @@
   "sourceRoot": "libs/social-feed-data-access/src",
   "prefix": "lib",
   "projectType": "library",
-  "tags": ["type:data-access", "platform:crossplatform"],
+  "tags": ["type:data-access", "platform:mobile", "platform:web"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
