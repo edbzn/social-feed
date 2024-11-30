@@ -1,0 +1,13 @@
+{
+  "name": "social-feed-ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/social-feed-ui/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": ["type:ui", "platform:crossplatform"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

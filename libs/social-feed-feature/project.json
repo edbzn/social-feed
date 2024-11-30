@@ -1,0 +1,13 @@
+{
+  "name": "social-feed-feature",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/social-feed-feature/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": ["type:feature", "platform:crossplatform"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

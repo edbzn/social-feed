@@ -14,7 +14,15 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@social-feed/social-feed-data-access": [
+        "libs/social-feed-data-access/src/index.ts"
+      ],
+      "@social-feed/social-feed-feature": [
+        "libs/social-feed-feature/src/index.ts"
+      ],
+      "@social-feed/social-feed-ui": ["libs/social-feed-ui/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

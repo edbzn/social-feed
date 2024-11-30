@@ -1,25 +1,29 @@
-import { Component, EnvironmentInjector, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   IonTabs,
   IonTabBar,
   IonTabButton,
   IonIcon,
-  IonLabel,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { triangle, ellipse, square } from 'ionicons/icons';
+import {earthOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
-  templateUrl: 'tabs.page.html',
-  styleUrls: ['tabs.page.scss'],
+  template: `
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="feed" href="/feed">
+          <ion-icon name="earth-outline"></ion-icon>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  `,
   standalone: true,
-  imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel],
+  imports: [IonTabs, IonTabBar, IonTabButton, IonIcon],
 })
-export class TabsPage {
-  public environmentInjector = inject(EnvironmentInjector);
-
+export class TabsComponent {
   constructor() {
-    addIcons({ triangle, ellipse, square });
+    addIcons({ earthOutline });
   }
 }

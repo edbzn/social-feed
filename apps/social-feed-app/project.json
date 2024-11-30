@@ -4,7 +4,7 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/social-feed-app/src",
-  "tags": [],
+  "tags": ["type:app", "platform:crossplatform"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
@@ -73,7 +73,10 @@
           "buildTarget": "social-feed-app:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/social-feed-app/proxy.conf.json"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

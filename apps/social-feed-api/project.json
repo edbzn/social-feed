@@ -1,0 +1,33 @@
+{
+  "name": "social-feed-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/social-feed-api/src",
+  "projectType": "application",
+  "tags": ["type:app", "platform:node"],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "social-feed-api:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "social-feed-api:build:development"
+        },
+        "production": {
+          "buildTarget": "social-feed-api:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/social-feed-api/jest.config.ts"
+      }
+    }
+  }
+}
