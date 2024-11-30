@@ -3,8 +3,8 @@ import * as os from 'node:os';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
-  appName: 'my-app',
-  webDir: '../../dist/apps/my-app/browser',
+  appName: 'social-feed-app',
+  webDir: '../../dist/apps/social-feed-app/browser',
   bundledWebRuntime: false,
   server: {
     androidScheme: 'https',

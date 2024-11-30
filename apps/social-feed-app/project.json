@@ -1,20 +1,20 @@
 {
-  "name": "my-app",
+  "name": "social-feed-app",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "apps/my-app/src",
+  "sourceRoot": "apps/social-feed-app/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/my-app",
-        "index": "apps/my-app/src/index.html",
-        "browser": "apps/my-app/src/main.ts",
+        "outputPath": "dist/apps/social-feed-app",
+        "index": "apps/social-feed-app/src/index.html",
+        "browser": "apps/social-feed-app/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/my-app/tsconfig.app.json",
+        "tsConfig": "apps/social-feed-app/tsconfig.app.json",
         "assets": [
           {
             "glob": "**/*.svg",
@@ -23,8 +23,8 @@
           }
         ],
         "styles": [
-          "apps/my-app/src/styles.css",
-          "apps/my-app/src/theme/variables.scss",
+          "apps/social-feed-app/src/styles.css",
+          "apps/social-feed-app/src/theme/variables.scss",
           "node_modules/@ionic/angular/css/core.css",
           "node_modules/@ionic/angular/css/normalize.css",
           "node_modules/@ionic/angular/css/structure.css",
@@ -67,10 +67,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "my-app:build:production"
+          "buildTarget": "social-feed-app:build:production"
         },
         "development": {
-          "buildTarget": "my-app:build:development"
+          "buildTarget": "social-feed-app:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -78,7 +78,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "my-app:build"
+        "buildTarget": "social-feed-app:build"
       }
     },
     "lint": {
@@ -88,14 +88,14 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/my-app/jest.config.ts"
+        "jestConfig": "apps/social-feed-app/jest.config.ts"
       }
     },
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "my-app:build",
-        "staticFilePath": "dist/apps/my-app/browser",
+        "buildTarget": "social-feed-app:build",
+        "staticFilePath": "dist/apps/social-feed-app/browser",
         "spa": true
       }
     },
