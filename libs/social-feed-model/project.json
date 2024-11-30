@@ -1,0 +1,8 @@
+{
+  "name": "social-feed-model",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/social-feed-model/src",
+  "projectType": "library",
+  "tags": ["type:model", "platform:node", "platform:crossplatform"],
+  "targets": {}
+}

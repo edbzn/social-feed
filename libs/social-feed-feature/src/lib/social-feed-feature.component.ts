@@ -6,8 +6,9 @@ import {
   IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from '@ionic/angular/standalone';
-import { FeedItemComponent } from '@social-feed/social-feed-ui';
+import { SocialPostComponent } from '@social-feed/social-feed-ui';
 import { SocialFeedDataAccess } from '@social-feed/social-feed-data-access';
+import { SocialPostModel } from '@social-feed/social-feed-model';
 
 @Component({
   selector: 'lib-social-feed',
@@ -17,7 +18,7 @@ import { SocialFeedDataAccess } from '@social-feed/social-feed-data-access';
     IonInfiniteScroll,
     IonInfiniteScrollContent,
     ScrollingModule,
-    FeedItemComponent,
+    SocialPostComponent,
   ],
   template: `
     <ion-content class="ion-padding" scroll-y="false">
@@ -29,11 +30,7 @@ import { SocialFeedDataAccess } from '@social-feed/social-feed-data-access';
       >
         <lib-social-post
           *cdkVirtualFor="let post of posts; let i = index; trackBy: trackById"
-          [title]="post.title"
-          [subtitle]="post.subtitle"
-          [content]="post.content"
-          [image]="post.image"
-          [likes]="post.likes"
+          [post]="post"
         />
         <ion-infinite-scroll (ionInfinite)="loadPosts($event)">
           <ion-infinite-scroll-content
@@ -53,9 +50,10 @@ import { SocialFeedDataAccess } from '@social-feed/social-feed-data-access';
 })
 export default class SocialFeedFeatureComponent {
   private socialFeedDataAccess = inject(SocialFeedDataAccess);
-  posts: any[] = [];
 
-  trackById = (_idx: number, item: { id: number }) => item.id;
+  posts: SocialPostModel[] = [];
+
+  trackById = (_idx: number, item: { id: string }) => item.id;
 
   constructor() {
     this.loadPosts();

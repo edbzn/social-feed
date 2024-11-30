@@ -9,6 +9,7 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { heart } from 'ionicons/icons';
+import { SocialPostModel } from '@social-feed/social-feed-model';
 
 @Component({
   selector: 'lib-social-post',
@@ -22,28 +23,25 @@ import { heart } from 'ionicons/icons';
     IonIcon,
   ],
   template: `
+    @let p = post();
+
     <ion-card>
-      <img loading="lazy" [src]="image()" />
+      <img loading="lazy" [src]="p.image" [alt]="p.title" />
       <ion-card-header>
-        <ion-card-title>{{ title() }}</ion-card-title>
-        <ion-card-subtitle>{{ subtitle() }}</ion-card-subtitle>
+        <ion-card-title>{{ p.title }}</ion-card-title>
+        <ion-card-subtitle>{{ p.subtitle }}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        {{ content() }}
-
+        {{ p.content }}
         <div class="ion-margin-top">
-          <ion-icon name="heart"></ion-icon> {{ likes() }}
+          <ion-icon name="heart"></ion-icon> {{ p.likes }}
         </div>
       </ion-card-content>
     </ion-card>
   `,
 })
-export class FeedItemComponent {
-  readonly title = input.required();
-  readonly subtitle = input.required();
-  readonly content = input.required();
-  readonly image = input.required();
-  readonly likes = input.required();
+export class SocialPostComponent {
+  readonly post = input.required<SocialPostModel>();
 
   constructor() {
     addIcons({ heart });
