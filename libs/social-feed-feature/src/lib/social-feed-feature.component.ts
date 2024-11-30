@@ -1,14 +1,14 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import {
   InfiniteScrollCustomEvent,
   IonContent,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from '@ionic/angular/standalone';
-import { SocialPostComponent } from '@social-feed/social-feed-ui';
 import { SocialFeedDataAccess } from '@social-feed/social-feed-data-access';
 import { SocialPostModel } from '@social-feed/social-feed-model';
+import { SocialPostComponent } from '@social-feed/social-feed-ui';
 
 @Component({
   selector: 'lib-social-feed',
@@ -29,7 +29,7 @@ import { SocialPostModel } from '@social-feed/social-feed-model';
         class="ion-content-scroll-host"
       >
         <lib-social-post
-          *cdkVirtualFor="let post of posts; let i = index; trackBy: trackById"
+          *cdkVirtualFor="let post of posts(); let i = index; trackBy: trackById"
           [post]="post"
         />
         <ion-infinite-scroll (ionInfinite)="loadPosts($event)">
@@ -48,21 +48,21 @@ import { SocialPostModel } from '@social-feed/social-feed-model';
     }
   `,
 })
-export default class SocialFeedFeatureComponent {
-  private socialFeedDataAccess = inject(SocialFeedDataAccess);
+export default class SocialFeedFeatureComponent implements OnInit {
+  private readonly socialFeedDataAccess = inject(SocialFeedDataAccess);
 
-  posts: SocialPostModel[] = [];
+  readonly posts: WritableSignal<SocialPostModel[]> = signal([]);
 
-  trackById = (_idx: number, item: { id: string }) => item.id;
+  readonly trackById = (_idx: number, item: { id: string }) => item.id;
 
-  constructor() {
+  ngOnInit() {
     this.loadPosts();
   }
 
-  loadPosts(e?: InfiniteScrollCustomEvent) {
+  loadPosts(event?: InfiniteScrollCustomEvent): void {
     this.socialFeedDataAccess.getFeed().subscribe((newPosts) => {
-      this.posts = [...this.posts, ...newPosts];
-      e?.target.complete();
+      this.posts.update((posts) => [...posts, ...newPosts]);
+      event?.target.complete();
     });
   }
 }
