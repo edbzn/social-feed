@@ -11,7 +11,7 @@ import { SocialPostModel } from '@social-feed/social-feed-model';
 import { SocialPostComponent } from '@social-feed/social-feed-ui';
 
 @Component({
-  selector: 'lib-social-feed',
+  selector: 'social-feed-feature',
   standalone: true,
   imports: [
     IonContent,
@@ -28,7 +28,7 @@ import { SocialPostComponent } from '@social-feed/social-feed-ui';
         maxBufferPx="3000"
         class="ion-content-scroll-host"
       >
-        <lib-social-post
+        <social-post-ui
           *cdkVirtualFor="let post of posts(); let i = index; trackBy: trackById"
           [post]="post"
         />

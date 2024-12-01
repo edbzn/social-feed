@@ -4,7 +4,7 @@ import { SocialPostModel } from '@social-feed/social-feed-model';
 
 @Injectable({ providedIn: 'root' })
 export class SocialFeedDataAccess {
-  private http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
   getFeed() {
     return this.http.get<SocialPostModel[]>('/api/feed');

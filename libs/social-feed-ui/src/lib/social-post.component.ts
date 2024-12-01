@@ -12,7 +12,7 @@ import { heart } from 'ionicons/icons';
 import { SocialPostModel } from '@social-feed/social-feed-model';
 
 @Component({
-  selector: 'lib-social-post',
+  selector: 'social-post-ui',
   standalone: true,
   imports: [
     IonCard,
@@ -24,7 +24,6 @@ import { SocialPostModel } from '@social-feed/social-feed-model';
   ],
   template: `
     @let p = post();
-
     <ion-card>
       <img loading="lazy" [src]="p.image" [alt]="p.title" />
       <ion-card-header>
