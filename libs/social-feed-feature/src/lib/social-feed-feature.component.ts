@@ -1,5 +1,13 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { Component, effect, inject, signal, viewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  linkedSignal,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import {
   IonContent,
@@ -65,12 +73,10 @@ export default class SocialFeedFeatureComponent {
         .pipe(tap(() => this.IonInfiniteScroll().complete())),
   });
 
-  private readonly accumulatePosts = effect(() => {
-    const newPosts = this.postsResource.value() ?? [];
-    this.posts.update((posts) => [...posts, ...newPosts]);
+  readonly posts = linkedSignal<SocialPostModel[], SocialPostModel[]>({
+    source: () => this.postsResource.value() ?? [],
+    computation: (newPosts, posts) => [...(posts?.value ?? []), ...newPosts],
   });
-
-  readonly posts = signal<SocialPostModel[]>([]);
 
   readonly trackById = trackById;
 
