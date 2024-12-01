@@ -1,7 +1,7 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, effect, inject, signal, viewChild } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import {
-  InfiniteScrollCustomEvent,
   IonContent,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
@@ -9,6 +9,9 @@ import {
 import { SocialFeedDataAccess } from '@social-feed/social-feed-data-access';
 import { SocialPostModel } from '@social-feed/social-feed-model';
 import { SocialPostComponent } from '@social-feed/social-feed-ui';
+import { tap } from 'rxjs';
+
+const trackById = <T extends { id: string }>(_idx: number, item: T) => item.id;
 
 @Component({
   selector: 'social-feed-feature',
@@ -29,11 +32,12 @@ import { SocialPostComponent } from '@social-feed/social-feed-ui';
         class="ion-content-scroll-host"
       >
         <social-post-ui
-          *cdkVirtualFor="let post of posts(); let i = index; trackBy: trackById"
+          *cdkVirtualFor="let post of posts(); trackBy: trackById"
           [post]="post"
         />
-        <ion-infinite-scroll (ionInfinite)="loadPosts($event)">
+        <ion-infinite-scroll (ionInfinite)="loadPosts()">
           <ion-infinite-scroll-content
+            #infiniteScrollContent
             loadingSpinner="bubbles"
             loadingText="Loading more data..."
           />
@@ -48,21 +52,29 @@ import { SocialPostComponent } from '@social-feed/social-feed-ui';
     }
   `,
 })
-export default class SocialFeedFeatureComponent implements OnInit {
+export default class SocialFeedFeatureComponent {
   private readonly socialFeedDataAccess = inject(SocialFeedDataAccess);
+  private readonly IonInfiniteScroll = viewChild.required(IonInfiniteScroll);
 
-  readonly posts: WritableSignal<SocialPostModel[]> = signal([]);
+  private readonly index = signal(0);
+  private readonly postsResource = rxResource({
+    request: this.index,
+    loader: () =>
+      this.socialFeedDataAccess
+        .getFeed()
+        .pipe(tap(() => this.IonInfiniteScroll().complete())),
+  });
 
-  readonly trackById = (_idx: number, item: { id: string }) => item.id;
+  private readonly accumulatePosts = effect(() => {
+    const newPosts = this.postsResource.value() ?? [];
+    this.posts.update((posts) => [...posts, ...newPosts]);
+  });
 
-  ngOnInit() {
-    this.loadPosts();
-  }
+  readonly posts = signal<SocialPostModel[]>([]);
 
-  loadPosts(event?: InfiniteScrollCustomEvent): void {
-    this.socialFeedDataAccess.getFeed().subscribe((newPosts) => {
-      this.posts.update((posts) => [...posts, ...newPosts]);
-      event?.target.complete();
-    });
+  readonly trackById = trackById;
+
+  loadPosts(): void {
+    this.index.update((index) => index + 1);
   }
 }
