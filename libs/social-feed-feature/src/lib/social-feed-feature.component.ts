@@ -1,12 +1,9 @@
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import {
   Component,
-  computed,
-  effect,
   inject,
   linkedSignal,
   signal,
-  viewChild,
+  viewChild
 } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import {
@@ -14,12 +11,15 @@ import {
   IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from '@ionic/angular/standalone';
+import {
+  FixedSizeVirtualScrollStrategy,
+  RxVirtualFor,
+  RxVirtualScrollViewportComponent
+} from '@rx-angular/template/experimental/virtual-scrolling';
 import { SocialFeedDataAccess } from '@social-feed/social-feed-data-access';
 import { SocialPostModel } from '@social-feed/social-feed-model';
 import { SocialPostComponent } from '@social-feed/social-feed-ui';
 import { tap } from 'rxjs';
-
-const trackById = <T extends { id: string }>(_idx: number, item: T) => item.id;
 
 @Component({
   selector: 'social-feed-feature',
@@ -28,19 +28,19 @@ const trackById = <T extends { id: string }>(_idx: number, item: T) => item.id;
     IonContent,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
-    ScrollingModule,
     SocialPostComponent,
+    RxVirtualFor,
+    RxVirtualScrollViewportComponent,
+    FixedSizeVirtualScrollStrategy,
   ],
   template: `
     <ion-content class="ion-padding" scroll-y="false">
-      <cdk-virtual-scroll-viewport
-        itemSize="450"
-        minBufferPx="1500"
-        maxBufferPx="3000"
+      <rx-virtual-scroll-viewport
+        [itemSize]="545"
         class="ion-content-scroll-host"
       >
         <social-post-ui
-          *cdkVirtualFor="let post of posts(); trackBy: trackById"
+          *rxVirtualFor="let post of posts(); trackBy: 'id'"
           [post]="post"
         />
         <ion-infinite-scroll (ionInfinite)="loadPosts()">
@@ -50,14 +50,8 @@ const trackById = <T extends { id: string }>(_idx: number, item: T) => item.id;
             loadingText="Loading more data..."
           />
         </ion-infinite-scroll>
-      </cdk-virtual-scroll-viewport>
+      </rx-virtual-scroll-viewport>
     </ion-content>
-  `,
-  styles: `
-    cdk-virtual-scroll-viewport {
-      height: 100%;
-      width: 100%;
-    }
   `,
 })
 export default class SocialFeedFeatureComponent {
@@ -78,9 +72,8 @@ export default class SocialFeedFeatureComponent {
     computation: (newPosts, posts) => [...(posts?.value ?? []), ...newPosts],
   });
 
-  readonly trackById = trackById;
-
   loadPosts(): void {
     this.index.update((index) => index + 1);
+    console.log('Loading more posts...');
   }
 }
