@@ -1,8 +1,6 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import {
   Component,
-  computed,
-  effect,
   inject,
   linkedSignal,
   signal,
@@ -64,9 +62,7 @@ export default class SocialFeedFeatureComponent {
   private readonly socialFeedDataAccess = inject(SocialFeedDataAccess);
   private readonly IonInfiniteScroll = viewChild.required(IonInfiniteScroll);
 
-  private readonly index = signal(0);
   private readonly postsResource = rxResource({
-    request: this.index,
     loader: () =>
       this.socialFeedDataAccess
         .getFeed()
@@ -81,6 +77,6 @@ export default class SocialFeedFeatureComponent {
   readonly trackById = trackById;
 
   loadPosts(): void {
-    this.index.update((index) => index + 1);
+    this.postsResource.reload();
   }
 }
