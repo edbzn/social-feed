@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/social-feed-api/src",
   "projectType": "application",
-  "tags": ["type:app", "platform:node"],
+  "tags": ["type:api", "platform:node"],
   "targets": {
     "serve": {
       "executor": "@nx/js:node",
