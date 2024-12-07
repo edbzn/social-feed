@@ -2,7 +2,8 @@
   "name": "social-feed-app",
   "dependencies": {
     "@capacitor/ios": "../../node_modules/@capacitor/ios",
-    "@capacitor/android": "../../node_modules/@capacitor/android"
+    "@capacitor/android": "../../node_modules/@capacitor/android",
+    "@capacitor/camera": "../../node_modules/@capacitor/camera"
   },
   "devDependencies": {
     "@capacitor/cli": "^6.0.0"

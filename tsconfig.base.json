@@ -22,7 +22,10 @@
         "libs/social-feed-feature/src/index.ts"
       ],
       "@social-feed/social-feed-model": ["libs/social-feed-model/src/index.ts"],
-      "@social-feed/social-feed-ui": ["libs/social-feed-ui/src/index.ts"]
+      "@social-feed/social-feed-ui": ["libs/social-feed-ui/src/index.ts"],
+      "@social-feed/social-post-feature": [
+        "libs/social-post-feature/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

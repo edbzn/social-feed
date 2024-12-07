@@ -1,0 +1,13 @@
+{
+  "name": "social-post-feature",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/social-post-feature/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": ["type:feature", "platform:mobile", "platform:web"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

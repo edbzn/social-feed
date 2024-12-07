@@ -2,6 +2,8 @@ import express from 'express';
 import { faker } from '@faker-js/faker';
 import { SocialPostModel } from '@social-feed/social-feed-model';
 
+import { SocialPostComponent } from '@social-feed/social-feed-ui';
+
 const app = express();
 
 app.get('/api/feed', (req, res) => {

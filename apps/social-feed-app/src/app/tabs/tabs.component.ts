@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
-  IonTabs,
+  IonIcon,
   IonTabBar,
   IonTabButton,
-  IonIcon,
+  IonTabs
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import {earthOutline } from 'ionicons/icons';
+import { addCircleOutline, earthOutline, settingsOutline } from 'ionicons/icons';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { SocialPostService } from '@social-feed/social-post-feature';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tabs',
@@ -16,6 +19,12 @@ import {earthOutline } from 'ionicons/icons';
         <ion-tab-button tab="feed" href="/feed">
           <ion-icon name="earth-outline"></ion-icon>
         </ion-tab-button>
+        <ion-tab-button (click)="takePictureAndNavigate()">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </ion-tab-button>
+        <ion-tab-button disabled>
+          <ion-icon name="settings-outline"></ion-icon>
+        </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
   `,
@@ -23,7 +32,18 @@ import {earthOutline } from 'ionicons/icons';
   imports: [IonTabs, IonTabBar, IonTabButton, IonIcon],
 })
 export class TabsComponent {
+  private readonly socialMediaService = inject(SocialPostService);
+  private readonly router = inject(Router);
+
   constructor() {
-    addIcons({ earthOutline });
+    addIcons({ earthOutline, addCircleOutline, settingsOutline });
+  }
+
+  async takePictureAndNavigate() {
+    const picture = await this.socialMediaService.takePicture();
+
+    if (picture) {
+      this.router.navigate(['post', 'new'], { queryParams: { picture } });
+    }
   }
 }

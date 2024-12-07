@@ -7,9 +7,18 @@ export const routes: Routes = [
     component: TabsComponent,
     children: [
       {
-        path: '',
+        path: 'feed',
         loadChildren: () => import('@social-feed/social-feed-feature').then((m) => m.routes),
+      },
+      {
+        path: 'post',
+        loadChildren: () => import('@social-feed/social-post-feature').then((m) => m.routes),
       }
     ],
-  }
+  },
+  {
+    path: '',
+    redirectTo: '/feed',
+    pathMatch: 'full',
+  },
 ];

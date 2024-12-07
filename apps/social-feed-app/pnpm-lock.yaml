@@ -11,6 +11,9 @@ importers:
       '@capacitor/android':
         specifier: ../../node_modules/@capacitor/android
         version: link:../../node_modules/@capacitor/android
+      '@capacitor/camera':
+        specifier: ../../node_modules/@capacitor/camera
+        version: link:../../node_modules/@capacitor/camera
       '@capacitor/ios':
         specifier: ../../node_modules/@capacitor/ios
         version: link:../../node_modules/@capacitor/ios
